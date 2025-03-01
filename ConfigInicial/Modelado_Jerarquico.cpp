@@ -24,6 +24,12 @@ rot = 0.0f;
 float	hombro = 0.0f;
 float codo = 0.0f;
 float muneca = 0.0F;
+float dedo1 = 0.0f;
+float subdedo1 = 0.0f;
+float dedo2 = 0.0f;
+float subdedo2 = 0.0f;
+float dedo3 = 0.0f;
+float subdedo3 = 0.0f;
 
 int main() {
 	glfwInit();
@@ -223,13 +229,38 @@ int main() {
 
 		//Model Palma
 		model = glm::translate(modelTemp, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(muneca), glm::vec3(1.0f, 0.0, 0.0f));
+		model = glm::rotate(model, glm::radians(muneca), glm::vec3(1.0f, 0.0f, 0.0f));
 		modelTemp2  = modelTemp = model = glm::translate(model, glm::vec3(0.25f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.5f, 1.0f, 1.0f));
 		color = glm::vec3(1.0f, 1.0f, 1.0f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);//A
+
+
+		//Dedo 1
+
+		model = glm::translate(modelTemp, glm::vec3(0.25f, 0.35f, 0.375f));
+		model = glm::rotate(model, glm::radians(dedo1), glm::vec3(0.0f, 0.0f, 1.0f));
+		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 0.3f, 0.25f));
+		color = glm::vec3(0.0f, 1.0f, 1.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);//A
+
+
+		//subDedo 1
+
+		model = glm::translate(modelTemp, glm::vec3(0.5f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(subdedo1), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 0.3f, 0.25f));
+		color = glm::vec3(1.0f, 0.0f, 1.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);//A
+
 
 		glBindVertexArray(0);
 
@@ -278,6 +309,16 @@ int main() {
 		 muneca += 0.18f;
 	 if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS)
 		 muneca -= 0.18f;
+
+	 if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
+		 dedo1 += 0.18f;
+	 if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS)
+		 dedo1 -= 0.18f;
+
+	 if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+		 subdedo1 += 0.18f;
+	 if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
+		 subdedo1 -= 0.18f;
  }
 
 
