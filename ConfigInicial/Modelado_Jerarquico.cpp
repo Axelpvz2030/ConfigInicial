@@ -5,7 +5,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-//Lopez Lopez Axel Dion Practica 4 Modelado Jerarquico
+//Lopez Lopez Axel Dion Practica 5 Modelado Jerarquico
 // Fecha de entrega: 07/03/2025
 // Shaders
 #include "Shader.h"
