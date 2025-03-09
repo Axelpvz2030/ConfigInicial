@@ -129,6 +129,8 @@ int main( )
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         dog.Draw(shader);
 
+        model = glm::translate(model, glm::vec(3.0f, 0.0f, 0.0f));
+
         // Swap the buffers
         glfwSwapBuffers( window );
     }
