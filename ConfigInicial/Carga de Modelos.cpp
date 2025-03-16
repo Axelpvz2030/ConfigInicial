@@ -98,6 +98,9 @@ int main( )
     
     // Load models
     Model dog((char*)"Models/RedDog.obj");
+    Model house_plant((char*)"Models/eb_house_plant_01.obj");
+    Model trees9((char*)"Models/trees9.obj");
+    Model wood((char*)"Models/wooden watch tower2.obj");
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
     
   
@@ -125,14 +128,42 @@ int main( )
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
         // Draw the loaded model
+
+        /*glm::mat4 model(1);
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        house_plant.Draw(shader);*/
+
         glm::mat4 model(1);
+        glm::mat4 model2(1);
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         dog.Draw(shader);
 
-        model = glm::translate(model, glm::vec3(3.0f, 0.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        dog.Draw(shader);
+
+        model2 = glm::translate(model, glm::vec3(1.0f, -0.5f, 0.0f));
+        model2 = glm::scale(model2, glm::vec3(0.02f, 0.02f, 0.02f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model2));
+        house_plant.Draw(shader);
+
+        model2 = glm::translate(model, glm::vec3(-2.0f, 0.0f, -5.0f));
+        model2 = glm::scale(model2, glm::vec3(0.1f, 0.1f, 0.1f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model2));
+        trees9.Draw(shader);
+
+        model2 = glm::translate(model, glm::vec3(4.0f, 0.0f, -5.0f));
+        model2 = glm::scale(model2, glm::vec3(0.1f, 0.1f, 0.1f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model2));
+        trees9.Draw(shader);
+
+
+
+        model2 = glm::translate(model, glm::vec3(-5.0f, -1.0f, -20.0f));
+        model2 = glm::scale(model2, glm::vec3(1.0f, 1.0f, 1.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model2));
+        wood.Draw(shader);
+
+       
+        
+
         // Swap the buffers
         glfwSwapBuffers( window );
     }
