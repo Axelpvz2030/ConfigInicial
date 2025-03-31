@@ -236,6 +236,18 @@ int main()
         glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 0.6f, 0.6f, 0.6f);
 
 
+        /*********************************************************************/
+
+        GLint lightPosLoc = glGetUniformLocation(lightingShader.Program, "light.position");
+        GLint viewPosLoc = glGetUniformLocation(lightingShader.Program, "viewPos");
+        glUniform3f(lightPosLoc, -lightPosX, -lightPosY, -lightPosZ);
+        glUniform3f(viewPosLoc, camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
+
+
+        // Set lights properties
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), 1.0f, 1.0f, 1.0f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.diffuse"), 0.6f, 0.6f, 0.6f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 0.6f, 0.6f, 0.6f);
 
 
         glm::mat4 view = camera.GetViewMatrix();
