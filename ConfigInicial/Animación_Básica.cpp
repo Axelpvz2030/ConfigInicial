@@ -1,3 +1,6 @@
+//Lopez Lopez Axel Dion 319195576
+//Fecha de entrega: 6 de abril del 2025  Previo Animacion Basica
+
 #include <iostream>
 #include <cmath>
 
