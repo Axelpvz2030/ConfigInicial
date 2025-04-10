@@ -104,6 +104,7 @@ float vertices[] = {
 glm::vec3 Light1 = glm::vec3(0);
 //Anim
 float rotBall = 0;
+float dogJump = 0;
 bool AnimBall = false;
 
 
@@ -287,10 +288,14 @@ int main()
 		model = glm::mat4(1);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		Piso.Draw(lightingShader);
+		
 
 		model = glm::mat4(1);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::translate(model, glm::vec3(2.0f*cos(glm::radians(rotBall)), dogJump, 2.0f*sin(glm::radians(rotBall))));
+		model = glm::rotate(model, glm::radians(-rotBall), glm::vec3(0.0f, 1.0f, 0.0f));
+		
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
 		Dog.Draw(lightingShader);
 
 		model = glm::mat4(1);
@@ -298,10 +303,14 @@ int main()
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 1);
+		model = glm::translate(model, glm::vec3(2.0f*cos(glm::radians(-rotBall)), 1.5f + abs(sin(glm::radians(-rotBall))), 2.0f*sin(glm::radians(-rotBall))));
 		model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -0.75f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	    Ball.Draw(lightingShader); 
 		glDisable(GL_BLEND);  //Desactiva el canal alfa 
+
+		
 		glBindVertexArray(0);
 	
 
@@ -446,15 +455,21 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 	}
 }
 void Animation() {
-	if (AnimBall)
-	{
-		rotBall += 0.2f;
+	if (AnimBall) {
+		rotBall += 0.1f;
+		dogJump = abs(cos(glm::radians(rotBall))) * 4;
+		if (dogJump >= 3.0f) {
+			dogJump -= 3.0f;
+		}
+		else {
+			dogJump = 0.0f;
+		}
+	}
+	
+		
 		//printf("%f", rotBall);
-	}
-	else
-	{
-		//rotBall = 0.0f;
-	}
+	
+	
 }
 
 void MouseCallback(GLFWwindow *window, double xPos, double yPos)
